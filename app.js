@@ -5,11 +5,11 @@ app.use(express.json());
 app.use(cors())
 
 const userRouter = require('./routes/userRoutes')
-
+const carRouter = require('./routes/carRoutes')
 
 app.use('/api/v1/users',userRouter)
+app.use('/api/v1/cars',carRouter)
 
-// middleware to handle all unhandled routes
 app.all("*", (req, res, next) => {
   const err = new Error(`Cannot find ${req.originalUrl} on this server!`);
   err.status = "fail";
@@ -18,7 +18,8 @@ app.all("*", (req, res, next) => {
   next(err);
 });
 
-// middleware to handle all errors
+// global error handling middleware
+
 app.use((err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
@@ -28,5 +29,7 @@ app.use((err, req, res, next) => {
     message: err.message,
   });
 });
+
+
 
 module.exports=app
