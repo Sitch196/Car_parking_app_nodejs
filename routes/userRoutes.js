@@ -8,7 +8,15 @@ router.post("/login", authControllers.login);
 router.post("/request-reset", passwordReset.requestReset);
 router.post("/reset-password", passwordReset.resetPassword);
 
-router.route("/").get(userControllers.getAllUsers);
+// only admin can view all of the registered users
+router
+  .route("/")
+  .get(
+    authControllers.protect,
+    authControllers.permissionTo("admin"),
+    userControllers.getAllUsers
+  );
+//log in with your createntials to delete update and get user
 router
   .route("/:id")
   .get(authControllers.protect, userControllers.getOneUser)

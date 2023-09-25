@@ -32,7 +32,6 @@ const addParkingZone = async (req, res) => {
 };
 async function getAllParking(req, res) {
   try {
-    // Query the database to get all parking zones
     const [rows] = await pool.query("SELECT * FROM ParkingZone");
 
     if (rows.length === 0) {

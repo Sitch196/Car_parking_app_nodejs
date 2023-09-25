@@ -12,6 +12,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/cars", carRouter);
 app.use("/api/v1/parking", parkingRouter);
 
+// handle all unhandeled routes
 app.all("*", (req, res, next) => {
   const err = new Error(`Cannot find ${req.originalUrl} on this server!`);
   err.status = "fail";

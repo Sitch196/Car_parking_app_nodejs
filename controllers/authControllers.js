@@ -22,7 +22,6 @@ const signup = async (req, res) => {
     );
 
     if (existingUsers.length > 0) {
-      // User with the same email already exists
       return res.status(400).json({
         status: "Failed",
         message: "User with that email already exists",
@@ -40,7 +39,6 @@ const signup = async (req, res) => {
 
     // Check if the user was successfully inserted
     if (result.affectedRows === 1) {
-      // Generate a JWT token
       const token = jwt.sign(
         { userId: result.insertId },
         process.env.JWT_SECRET,
@@ -76,15 +74,14 @@ const login = async (req, res) => {
     ]);
 
     if (users.length === 0) {
-      // No user found with the provided email
       return res.status(401).json({
         status: "Failed",
         message: "Email or password is not correct",
       });
     }
 
-    // Verify the provided password against the stored hashed password
-    const user = users[0]; // Assuming there's only one user with a given email
+    // Verifying the provided password against the stored hashed password
+    const user = users[0];
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
@@ -95,10 +92,10 @@ const login = async (req, res) => {
       });
     }
 
-    // Determine the user's role (assuming you have a 'role' property in your user object)
+    // Determineing the user's role
     const isAdmin = user.role === "admin";
 
-    // Generate a JWT token for the authenticated user with the role
+    // Generating a JWT token for the authenticated user with the role
     const token = jwt.sign(
       { userId: user.id, role: isAdmin ? "admin" : "user" },
       process.env.JWT_SECRET,
@@ -122,10 +119,8 @@ const login = async (req, res) => {
 
 const protect = (req, res, next) => {
   try {
-    // Get the token from the request headers
     const token = req.headers.authorization;
 
-    // Check if the token is missing or doesn't start with "Bearer "
     if (!token || !token.startsWith("Bearer ")) {
       return res.status(401).json({
         status: "Failed",
@@ -133,7 +128,6 @@ const protect = (req, res, next) => {
       });
     }
 
-    // Extract the token without "Bearer "
     const tokenValue = token.replace("Bearer ", "");
 
     // Verify the token using your JWT secret
@@ -142,12 +136,9 @@ const protect = (req, res, next) => {
     // Attach the user ID and role to the request for future use
     req.userId = decoded.userId;
 
-    // Log the entire decoded object
-
     // Attach the user role to req.userRole
     req.userRole = decoded.role;
 
-    // Continue to the next middleware or route
     next();
   } catch (err) {
     return res.status(401).json({
@@ -159,9 +150,8 @@ const protect = (req, res, next) => {
 
 const permissionTo = (role) => {
   return (req, res, next) => {
-    // Check if req.userRole includes the required role
     if (req.userRole === role) {
-      next(); // Allow access to the next middleware or route handler
+      next();
     } else {
       res.status(403).json({
         status: "Failed",

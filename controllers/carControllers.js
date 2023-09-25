@@ -4,6 +4,30 @@ const addCar = async (req, res) => {
   try {
     const { type, model, year } = req.body;
     const userId = req.userId;
+
+    // Check the user's balance
+    const [userRows] = await pool.query(
+      "SELECT balance FROM users WHERE id = ?",
+      [userId]
+    );
+
+    if (userRows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const userBalance = userRows[0].balance;
+
+    if (userBalance < 5) {
+      return res.status(400).json({ error: "Insufficient balance" });
+    }
+
+    // Deduct $5.00 from the user's balance
+    const updatedBalance = userBalance - 5;
+    await pool.query("UPDATE users SET balance = ? WHERE id = ?", [
+      updatedBalance,
+      userId,
+    ]);
+
     // Insert the car into the database
     const [result] = await pool.query(
       "INSERT INTO cars (user_id, type, model, year) VALUES (?, ?, ?, ?)",
@@ -35,7 +59,6 @@ const addCar = async (req, res) => {
 async function getAllCars(req, res) {
   try {
     const userId = req.userId;
-    // Query the database to get all cars for the specific user
     const [rows] = await pool.query("SELECT * FROM cars WHERE user_id = ?", [
       userId,
     ]);
@@ -140,47 +163,6 @@ async function deleteCar(req, res) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
-// async function getCarsByCriteria(req, res) {
-//     try {
-//       const userId = req.userId;
-//       const { year, model, type } = req.query;
-
-//       // Build the SQL query dynamically based on the provided criteria
-//       const queryParams = [];
-//       let query = 'SELECT * FROM cars WHERE ';
-
-//       // Check and add filters for year, model, and type if provided
-//       if (year) {
-//         query += ' AND year = ?';
-//         queryParams.push(year);
-//       }
-
-//       if (model) {
-//         query += ' AND model = ?';
-//         queryParams.push(model);
-//       }
-
-//       if (type) {
-//         query += ' AND type = ?';
-//         queryParams.push(type);
-//       }
-
-//       // Add the user ID as the first parameter
-//       queryParams.unshift(userId);
-
-//       // Execute the query
-//       const [rows] = await pool.query(query, queryParams);
-
-//       if (rows.length === 0) {
-//         return res.status(404).json({ error: 'No cars found matching the criteria' });
-//       }
-
-//       res.json(rows);
-//     } catch (error) {
-//       console.error('Error:', error);
-//       res.status(500).json({ error: 'Internal Server Error' });
-//     }
-//   }
 
 module.exports = {
   addCar,

@@ -3,7 +3,15 @@ const authcontroller = require("../controllers/authControllers");
 const router = express.Router();
 const parkingController = require("../controllers/parkingContoller");
 
-router.post("/", parkingController.addParkingZone);
+//only admin can add parking zones
+router.post(
+  "/",
+  authcontroller.protect,
+  authcontroller.permissionTo("admin"),
+  parkingController.addParkingZone
+);
+
+// only admin can see parking zones
 router.get(
   "/",
   authcontroller.protect,

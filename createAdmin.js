@@ -25,3 +25,5 @@ const createAdminUser = async () => {
 };
 
 createAdminUser();
+
+// RUN THIS FILE TO CREATE AN ADMIN BY SIMPLY DOING    * node createAdmin.js * in the terminal
