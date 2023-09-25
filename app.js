@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
-const cors= require('cors')
+const cors = require("cors");
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
-const userRouter = require('./routes/userRoutes')
-const carRouter = require('./routes/carRoutes')
+const userRouter = require("./routes/userRoutes");
+const carRouter = require("./routes/carRoutes");
+const parkingRouter = require("./routes/parkingzoneRoutes");
 
-app.use('/api/v1/users',userRouter)
-app.use('/api/v1/cars',carRouter)
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/cars", carRouter);
+app.use("/api/v1/parking", parkingRouter);
 
 app.all("*", (req, res, next) => {
   const err = new Error(`Cannot find ${req.originalUrl} on this server!`);
@@ -30,6 +32,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-
-
-module.exports=app
+module.exports = app;
