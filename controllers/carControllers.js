@@ -2,8 +2,13 @@ const pool = require("../database");
 
 const addCar = async (req, res) => {
   try {
-    const { type, model, year } = req.body;
+    const { type, model, year, parking_zone_id } = req.body;
     const userId = req.userId;
+
+    // Check if parking_zone_id is provided
+    if (!parking_zone_id) {
+      return res.status(400).json({ error: "Parking zone ID is required" });
+    }
 
     // Check the user's balance
     const [userRows] = await pool.query(
@@ -17,40 +22,69 @@ const addCar = async (req, res) => {
 
     const userBalance = userRows[0].balance;
 
-    if (userBalance < 5) {
+    // Calculate the parking fee based on the fee_per_hour
+    const [zoneRows] = await pool.query(
+      "SELECT fee_per_hour FROM ParkingZone WHERE id = ?",
+      [parking_zone_id]
+    );
+
+    if (zoneRows.length === 0) {
+      return res.status(404).json({ error: "Parking zone not found" });
+    }
+
+    const feePerHour = zoneRows[0].fee_per_hour;
+    const parkingFee = feePerHour * 1;
+
+    if (userBalance < parkingFee) {
       return res.status(400).json({ error: "Insufficient balance" });
     }
 
-    // Deduct $5.00 from the user's balance
-    const updatedBalance = userBalance - 5;
+    // Deduct the parking fee from the user's balance
+    const updatedBalance = userBalance - parkingFee;
     await pool.query("UPDATE users SET balance = ? WHERE id = ?", [
       updatedBalance,
       userId,
     ]);
 
-    // Insert the car into the database
-    const [result] = await pool.query(
+    // Insert the car into the cars table
+    const [carResult] = await pool.query(
       "INSERT INTO cars (user_id, type, model, year) VALUES (?, ?, ?, ?)",
       [userId, type, model, year]
     );
 
     // Check if the car was successfully inserted
-    if (result.affectedRows === 1) {
+    if (carResult.affectedRows !== 1) {
+      return res.status(500).json({
+        status: "Failed",
+        message: "Car insertion failed",
+      });
+    }
+
+    const carId = carResult.insertId;
+
+    // Insert a record into parking_zone_cars to associate the car with the parking zone
+    const [parkingZoneResult] = await pool.query(
+      "INSERT INTO parking_zone_cars (parking_zone_id, car_id,user_id, parking_fee) VALUES (?, ?, ?,?)",
+      [parking_zone_id, carId, userId, parkingFee]
+    );
+
+    // Check if the association was successful
+    if (parkingZoneResult.affectedRows === 1) {
       res.status(201).json({
         status: "Success",
-        message: "Car added successfully",
+        message: "Car added and associated with parking zone successfully",
       });
     } else {
       res.status(500).json({
         status: "Failed",
-        message: "Car insertion failed",
+        message: "Failed to associate the car with the parking zone",
       });
     }
   } catch (err) {
     console.error("Error:", err);
     res.status(500).json({
       status: "Failed",
-      message: "Internal Server Error",
+      message: err.message,
     });
   }
 };

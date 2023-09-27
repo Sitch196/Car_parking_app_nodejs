@@ -18,5 +18,22 @@ router.get(
   authcontroller.permissionTo("admin"),
   parkingController.getAllParking
 );
+router
+  .route("/:id")
+  .get(
+    authcontroller.protect,
+    authcontroller.permissionTo("admin"),
+    parkingController.getParking
+  )
+  .delete(
+    authcontroller.protect,
+    authcontroller.permissionTo("admin"),
+    parkingController.deleteParking
+  )
+  .patch(
+    authcontroller.protect,
+    authcontroller.permissionTo("admin"),
+    parkingController.updateParking
+  );
 
 module.exports = router;

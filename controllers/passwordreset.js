@@ -8,7 +8,7 @@ const requestReset = async () => {
     // Generate a unique reset token
     const resetToken = crypto.randomBytes(32).toString("hex");
     const expiration = new Date();
-    expiration.setHours(expiration.getHours() + 1); // Token expires in 1 hour
+    expiration.setHours(expiration.getHours() + 1);
 
     // Store the reset token and expiration in the database
     const connection = await pool.getConnection();

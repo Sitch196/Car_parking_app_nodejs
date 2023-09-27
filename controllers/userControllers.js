@@ -33,6 +33,7 @@ async function updateUser(req, res) {
     const { name, email } = req.body;
 
     // Construct the SQL update statement dynamically based on the provided fields
+    //This isso that u can update more than one filed at oonce
     const updateFields = [];
     const params = [];
 
@@ -55,7 +56,6 @@ async function updateUser(req, res) {
     )} WHERE id = ?`;
     params.push(userId);
 
-    // Update the user's information in the database
     await pool.query(updateQuery, params);
 
     res.json({

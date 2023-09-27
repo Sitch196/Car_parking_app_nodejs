@@ -7,10 +7,12 @@ app.use(cors());
 const userRouter = require("./routes/userRoutes");
 const carRouter = require("./routes/carRoutes");
 const parkingRouter = require("./routes/parkingzoneRoutes");
+const bookingRouter = require("./routes/bookingRoutes");
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/cars", carRouter);
 app.use("/api/v1/parking", parkingRouter);
+app.use("/api/v1/bookings", bookingRouter);
 
 // handle all unhandeled routes
 app.all("*", (req, res, next) => {
