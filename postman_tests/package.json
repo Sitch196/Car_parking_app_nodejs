@@ -1,0 +1,514 @@
+{
+	"info": {
+		"_postman_id": "aeb9b4db-f4cf-4b2c-b182-bb501ef594d3",
+		"name": "Requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26709898",
+		"_collection_link": "https://galactic-capsule-252873.postman.co/workspace/Parking_App~3c14431d-6708-43da-860a-60fcd9db950d/collection/26709898-aeb9b4db-f4cf-4b2c-b182-bb501ef594d3?action=share&source=collection_link&creator=26709898"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "Login Users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"leva@dev.ge\",\n    \"password\":\"levani12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7700/api/v1/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register a user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"tato\",\n    \"email\":\"niga@dev.ge\",\n    \"password\":\"niga123\",\n    \"role\":\"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7700/api/v1/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Add Car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJyb2xlIjoidXNlciIsImlhdCI6MTY5NTczMDY2MSwiZXhwIjoxNjk4MzIyNjYxfQ.-K2PPpAp8hcFFNpyY-W-rFLgefpgjnfBW1JnVH_GldY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\":\"sports car\",\n    \"model\":\"mclaren \",\n    \"year\":\"2023\",\n    \"parking_zone_id\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7700/api/v1/cars/carList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"cars",
+								"carList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Cars",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJyb2xlIjoidXNlciIsImlhdCI6MTY5NTczMDY2MSwiZXhwIjoxNjk4MzIyNjYxfQ.-K2PPpAp8hcFFNpyY-W-rFLgefpgjnfBW1JnVH_GldY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7700/api/v1/cars/carList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"cars",
+								"carList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJpYXQiOjE2OTU0NzA5NzcsImV4cCI6MTY5ODA2Mjk3N30.5xKSfU2_Hbc4tpIBNkA5Al-MBsDHIfCW00Sf2MBEyuo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7700/api/v1/cars/carList/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"cars",
+								"carList",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Car info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJpYXQiOjE2OTU0NzA5NzcsImV4cCI6MTY5ODA2Mjk3N30.5xKSfU2_Hbc4tpIBNkA5Al-MBsDHIfCW00Sf2MBEyuo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\":\"vrom vrom\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7700/api/v1/cars/carList/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"cars",
+								"carList",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Get booking info",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parking",
+			"item": [
+				{
+					"name": "Get all parking Zones",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIzLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2OTU2Mjk4MzUsImV4cCI6MTY5ODIyMTgzNX0.SVj3NWU4EnOsBhrJPyOlqug_ptdtQcz4_6WS4GFsEzs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7700/api/v1/parking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"parking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a parking zone",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIzLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2OTU3Mzk3ODIsImV4cCI6MTY5ODMzMTc4Mn0.PtnBuZZ-xs9Vr0KImZBvnKz5th2rhAx3qPKNEg2Y7ic",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"zone_name\":\"downtown\",\n    \"street_name\":\"rustaveli 123\",\n    \"fee_per_hour\":6.00\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7700/api/v1/parking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"parking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a parking zone",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIzLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2OTU3Mzk3ODIsImV4cCI6MTY5ODMzMTc4Mn0.PtnBuZZ-xs9Vr0KImZBvnKz5th2rhAx3qPKNEg2Y7ic",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7700/api/v1/parking/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"parking",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update parking zone info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIzLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2OTU4MDcxNDAsImV4cCI6MTY5ODM5OTE0MH0.Lv75NhlN-SNtgJGekl8vibIXRE0dQlFKrn_LCMI-6v0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"street_name\":\"North st N101\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7700/api/v1/parking/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"parking",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIzLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2OTU2NjUzODksImV4cCI6MTY5ODI1NzM4OX0.-_385qaUwUczuOoqetDx3dVQPSFFXncTPDlyZ19DKLk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7700/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User With id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7700/api/v1/users/id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One user with id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIxLCJpYXQiOjE2OTU0NjQ4NTYsImV4cCI6MTY5ODA1Njg1Nn0.7XwdLlPZqExVa1dsmYTItwq4aY0AqcJ6MrA_rUfZelk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7700/api/v1/users/19",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User with id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"john\",\n    \"email\":\"Jonny@dev.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7700/api/v1/users/18",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7700",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"18"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

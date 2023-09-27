@@ -90,6 +90,7 @@ The **permissionTo** middleware restricts privileged actions to administrators. 
 ### other
 
 **view Mysql database design** in `mysql files`
+**view `postman_test` files and import `package.json` file in your postman application to see all the request structure**
 
 ### Dependencies
 
