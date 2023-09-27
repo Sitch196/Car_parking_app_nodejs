@@ -7,6 +7,16 @@ Car Parking App is a backend application built using Node.js and Express.js, wit
 
 ## Getting Started
 
+### Installation
+
+Follow these steps to set up the project:
+
+- Clone this repository to your local machine.
+
+- CD into the project directory.
+
+- Run npm i to install the project dependencies.
+- Run npm run dev to start the server.
 ### Prerequisites
 
 Before you start using the Car Parking App, ensure you have the following:
@@ -34,16 +44,6 @@ Before you start using the Car Parking App, ensure you have the following:
 
 Make sure to replace the values with your specific configuration.
 
-### Installation
-
-Follow these steps to set up the project:
-
-- Clone this repository to your local machine.
-
-- CD into the project directory.
-
-- Run npm i to install the project dependencies.
-- Run npm run dev to start the server.
 
 ### Usage
 
@@ -87,10 +87,10 @@ The **permissionTo** middleware restricts privileged actions to administrators. 
 
 - `/api/v1/bookings`: View and manage booking history (for logged in user).
 
-### other
+### Things to Consider:
 
-**view Mysql database design** in `mysql files`
-**view `postman_test` files and import `package.json` file in your postman application to see all the request structure**
+- **view Mysql database design** in `mysql files`
+- **view `postman_test` files and import `package.json` file in your postman application to see all the request structure**
 
 ### Dependencies
 
